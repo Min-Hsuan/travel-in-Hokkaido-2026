@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>北海道之旅 2026 · Hokkaido Trip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+:root{--lav:#e8e4f0;--lav-mid:#b8add4;--lav-dark:#6b5b95;--lav-deep:#3d2b6b;--sage:#d4e8d8;--sage-mid:#7aaa82;--sage-dark:#3a7041;--blush-mid:#d4937a;--amber-light:#faf0d7;--amber-mid:#d4a84b;--amber-dark:#8a6a1a;--cream:#faf8f4;--ink:#1a1612;--ink-muted:#5a534a;--ink-light:#8a837a;--border:rgba(90,83,74,0.15);--border-strong:rgba(90,83,74,0.3)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Noto Sans TC',sans-serif;font-weight:400;color:var(--ink);line-height:1.7;min-height:100vh}
+.hero{background:var(--lav-deep);color:white;padding:3rem 1.5rem 2.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(184,173,212,0.2)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-20px;width:160px;height:160px;border-radius:50%;background:rgba(122,170,130,0.15)}
+.hero-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--lav-mid);margin-bottom:.75rem;font-weight:300}
+.hero h1{font-family:'Noto Serif TC',serif;font-size:2rem;font-weight:700;line-height:1.2;margin-bottom:.5rem;position:relative}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:1.5rem}
+.hero-dates{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.date-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);cursor:pointer;text-decoration:none;transition:background .2s}
+.date-pill:hover{background:rgba(255,255,255,.22)}
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--lav-deep);border-bottom:1px solid rgba(255,255,255,.1);padding:0 1rem;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;display:flex}
+.sticky-nav::-webkit-scrollbar{display:none}
+.nav-item{flex-shrink:0;padding:12px 14px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.nav-item.active,.nav-item:hover{color:white;border-bottom-color:var(--lav-mid)}
+main{max-width:600px;margin:0 auto;padding:0 0 4rem}
+.day-section{margin:0;padding:0}
+.day-header{background:var(--cream);padding:2rem 1.5rem .75rem;position:sticky;top:41px;z-index:50;border-bottom:1px solid var(--border)}
+.day-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light);font-weight:300;margin-bottom:2px}
+.day-title{font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:600;color:var(--lav-deep)}
+.day-subtitle{font-size:12px;color:var(--ink-light);margin-top:2px}
+.timeline{padding:1rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:0}
+.event{display:flex;gap:12px;position:relative}
+.event-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px}
+.event-dot{width:10px;height:10px;border-radius:50%;background:var(--lav-mid);border:2px solid var(--cream);outline:1.5px solid var(--lav-mid);flex-shrink:0;margin-top:4px;z-index:1}
+.event-dot.highlight{background:var(--lav-deep);outline-color:var(--lav-dark);width:12px;height:12px}
+.event-dot.transport{background:var(--sage-mid);outline-color:var(--sage-dark)}
+.event-dot.food{background:var(--blush-mid);outline-color:#b05a40}
+.event-connector{flex:1;width:1.5px;background:var(--border);margin:2px 0}
+.event-body{flex:1;padding-bottom:1.25rem}
+.event:last-child .event-body{padding-bottom:.25rem}
+.event-time{font-size:11px;color:var(--ink-light);margin-bottom:2px;letter-spacing:.03em}
+.event-title{font-size:15px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:4px}
+.event-desc{font-size:13px;color:var(--ink-muted);line-height:1.65}
+.spot-photo-wrap{margin-top:8px;border-radius:8px;overflow:hidden}
+.spot-photo-wrap img{width:100%;height:auto;object-fit:contain;display:block}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.map-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--lav);border:1px solid var(--lav-mid);border-radius:6px;font-size:12px;color:var(--lav-deep);font-weight:500;cursor:pointer;text-decoration:none;transition:background .15s;font-family:'Noto Sans TC',sans-serif}
+.map-btn:hover{background:var(--lav-mid);color:white}
+.map-btn svg{width:13px;height:13px;flex-shrink:0}
+.map-container{display:none;margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid var(--border-strong);position:relative}
+.map-container.open{display:block}
+.map-container iframe{width:100%;height:240px;border:none;display:block}
+.map-open-link{position:absolute;top:8px;right:8px;background:white;border:1px solid var(--border-strong);border-radius:6px;padding:5px 8px;font-size:11px;color:var(--lav-deep);font-weight:500;text-decoration:none;display:flex;align-items:center;gap:4px;box-shadow:0 1px 4px rgba(0,0,0,.1);z-index:10}
+.note-block{margin:0 1.5rem 1.5rem;background:var(--amber-light);border:1px solid rgba(212,168,75,.3);border-left:3px solid var(--amber-mid);border-radius:0 8px 8px 0;padding:.85rem 1rem;font-size:13px;color:var(--amber-dark);line-height:1.7}
+.note-block .note-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:4px;opacity:.75}
+.free-block{margin:0 1.5rem 1.5rem;background:var(--sage);border:1px solid rgba(122,170,130,.35);border-radius:10px;padding:.85rem 1rem;font-size:13px;color:var(--sage-dark);line-height:1.7}
+.free-block .free-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:6px;opacity:.8}
+.day-divider{height:8px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);opacity:.5}
+.option-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.option-item{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.option-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.option-meta{font-size:12px;color:var(--ink-muted)}
+footer{text-align:center;padding:2rem 1.5rem;font-size:12px;color:var(--ink-light);border-top:1px solid var(--border);margin-top:1rem}
+@media(max-width:360px){.hero h1{font-size:1.7rem}.day-title{font-size:1.2rem}}
+.spot-swiper{margin-top:8px;border-radius:8px;overflow:hidden;position:relative;background:#f5f5f5;height:280px;width:100%}.spot-swiper .swiper-wrapper{display:flex;height:280px}.spot-swiper .swiper-slide{width:100% !important;display:flex !important;align-items:center;justify-content:center;height:100% !important;flex-shrink:0}.spot-swiper .swiper-slide img{width:100% !important;height:100% !important;object-fit:contain !important;display:block !important;visibility:visible !important;opacity:1 !important;border-radius:8px}.spot-swiper .swiper-pagination{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:10}.spot-swiper .swiper-pagination-bullet{width:8px;height:8px;background:rgba(255,255,255,.6);opacity:1;margin:0 4px}.spot-swiper .swiper-pagination-bullet-active{background:white}.spot-swiper .swiper-button-prev,.spot-swiper .swiper-button-next{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;background:rgba(0,0,0,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer;z-index:10;--swiper-navigation-size:16px}.spot-swiper .swiper-button-prev{left:8px}.spot-swiper .swiper-button-next{right:8px}.spot-swiper .swiper-button-prev:after,.spot-swiper .swiper-button-next:after{font-size:16px}
+.lang-toggle{position:absolute;top:1rem;right:1.5rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.9);cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:.05em;transition:background .2s;z-index:5}
+.lang-toggle:hover{background:rgba(255,255,255,.28)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+  <div class="hero-tag" data-zh="行程表 · 2026" data-en="Itinerary · 2026">行程表 · 2026</div>
+  <h1 data-zh="北海道之旅&lt;br&gt;富良野 × 美瑛 × 小樽" data-en="Hokkaido Trip&lt;br&gt;Furano × Biei × Otaru">北海道之旅<br>富良野 × 美瑛 × 小樽</h1>
+  <p class="hero-sub" data-zh="6/22（一）— 6/26（六）· 5天4夜" data-en="Jun 22 (Mon) — Jun 26 (Sat) · 5 Days 4 Nights">6/22（一）— 6/26（六）· 5天4夜</p>
+  <div class="hero-dates">
+    <a href="#day622" class="date-pill" data-zh="6/22 週一" data-en="6/22 Mon">6/22 週一</a>
+    <a href="#day623" class="date-pill" data-zh="6/23 週二" data-en="6/23 Tue">6/23 週二</a>
+    <a href="#day624" class="date-pill" data-zh="6/24 週三" data-en="6/24 Wed">6/24 週三</a>
+    <a href="#day625" class="date-pill" data-zh="6/25 週四" data-en="6/25 Thu">6/25 週四</a>
+    <a href="#day626" class="date-pill" data-zh="6/26 週六" data-en="6/26 Sat">6/26 週六</a>
+  </div>
+</header>
+<nav class="sticky-nav">
+  <a href="#day622" class="nav-item">6/22</a>
+  <a href="#day623" class="nav-item">6/23</a>
+  <a href="#day624" class="nav-item">6/24</a>
+  <a href="#day625" class="nav-item">6/25</a>
+  <a href="#day626" class="nav-item">6/26</a>
+</nav>
+<main>
+
+<!-- ===== DAY 1 ===== -->
+<section id="day622" class="day-section">
+<div class="day-header">
+  <div class="day-label">Day 1</div>
+  <div class="day-title" data-zh="6/22（週一）出發！" data-en="6/22 (Mon) Departure!">6/22（週一）出發！</div>
+  <div class="day-subtitle" data-zh="桃園 → 新千歲機場 → 富良野" data-en="Taoyuan → New Chitose Airport → Furano">桃園 → 新千歲機場 → 富良野</div>
+</div>
+<div class="timeline">
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">06:20</div>
+    <div class="event-title" data-zh="✈️ 桃園出發 IT234" data-en="✈️ Depart Taoyuan IT234">✈️ 桃園出發 IT234</div>
+    <div class="event-desc" data-zh="記得帶飯糰放背包，機上解決早餐～" data-en="Pack onigiri in your bag — eat breakfast on the plane!">記得帶飯糰放背包，機上解決早餐～</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">11:05</div>
+    <div class="event-title" data-zh="🛬 抵達新千歲機場" data-en="🛬 Arrive New Chitose Airport">🛬 抵達新千歲機場</div>
+    <div class="event-desc" data-zh="機場 2 樓的 LAWSON 便利超商買食物果腹（炸雞 + 御飯糰）" data-en="Grab food at LAWSON on Floor 2 (fried chicken + onigiri)">機場 2 樓的 LAWSON 便利超商買食物果腹（炸雞 + 御飯糰）</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">12:30</div>
+    <div class="event-title" data-zh="🚗 預約取車" data-en="🚗 Pick Up Rental Car">🚗 預約取車</div>
+    <div class="event-desc" data-zh="取車後往富良野方向出發" data-en="Head towards Furano after picking up the car">取車後往富良野方向出發</div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=Orix+Rental+Chitose+Airport')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=Orix+Rental+Chitose+Airport" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d169858.94042366426!2d141.75030020855525!3d42.888072206970584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f75206a516598e3%3A0x45868ca361436ed7!2sOrix%20Rental%20Chitose%20Airport!5e0!3m2!1szh-TW!2stw!4v1780629212459!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d169858.94042366426!2d141.75030020855525!3d42.888072206970584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f75206a516598e3%3A0x45868ca361436ed7!2sOrix%20Rental%20Chitose%20Airport!5e0!3m2!1szh-TW!2stw!4v1780629212459!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot highlight"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">14:30 — 15:30</div>
+    <div class="event-title" data-zh="🌸 第一站：中富良野．日之出公園" data-en="🌸 Stop 1: Nakafurano · Hinode Park">🌸 第一站：中富良野．日之出公園</div>
+    <div class="event-desc" data-zh="360度俯瞰整個富良野盆地與十勝岳連峰，還有超可愛的寶可夢人孔蓋！" data-en="360° panoramic view over the Furano Basin and Tokachidake Range — plus adorable Pokémon manhole covers!">360度俯瞰整個富良野盆地與十勝岳連峰，還有超可愛的寶可夢人孔蓋！</div>
+    <div class="spot-photo-wrap"><img src="img/日出公園.png" alt="日之出公園"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/mqn9BGzuu4hJyk7K8')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="日之出公園" data-en="Hinode Park">日之出公園</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.app.goo.gl/mqn9BGzuu4hJyk7K8" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.877342756668!2d142.47933077646013!3d43.46315787111174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb58eb56c5507%3A0x9276b5e282fa941b!2z5pel5LmL5Ye65YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1780629239764!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.877342756668!2d142.47933077646013!3d43.46315787111174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb58eb56c5507%3A0x9276b5e282fa941b!2z5pel5LmL5Ye65YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1780629239764!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/6h9dRyEUpLVB9vRn6')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="寶可夢人孔蓋" data-en="Pokémon Manhole">寶可夢人孔蓋</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.app.goo.gl/6h9dRyEUpLVB9vRn6" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.6973847706545!2d142.47762758134772!3d43.461368556367084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb50078f279ab%3A0x6dae801eac20fd63!2z5a-25Y-v5aSi5Lq65a2U6JOL77yI6Zi_576F5ouJ5YWt5bC-44CB5YSq6ZuF6LKT77yJ!5e0!3m2!1szh-TW!2stw!4v1780629303846!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.6973847706545!2d142.47762758134772!3d43.461368556367084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb50078f279ab%3A0x6dae801eac20fd63!2z5a-25Y-v5aSi5Lq65a2U6JOL77yI6Zi_576F5ouJ5YWt5bC-44CB5YSq6ZuF6LKT77yJ!5e0!3m2!1szh-TW!2stw!4v1780629303846!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot highlight"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">15:45 — 17:15</div>
+    <div class="event-title" data-zh="🌻 第二站：四季彩之丘" data-en="🌻 Stop 2: Shikisai no Oka">🌻 第二站：四季彩之丘</div>
+    <div class="event-desc" data-zh="500日圓花田維護協力金 + 500日圓停車費&lt;br&gt;必吃：美瑛在地牛乳霜淇淋、熱騰騰的男爵馬鈴薯可樂餅、白玉米" data-en="¥500 field maintenance fee + ¥500 parking&lt;br&gt;Must try: Biei local milk soft serve, hot Baron potato croquette, white corn">500日圓花田維護協力金 + 500日圓停車費<br>必吃：美瑛在地牛乳霜淇淋、熱騰騰的男爵馬鈴薯可樂餅、白玉米</div>
+    <div class="spot-photo-wrap"><img src="img/四季彩之秋.png" alt="四季彩之丘"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=四季彩之丘+美瑛')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=四季彩之丘+美瑛" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2892.7132150364287!2d142.46250747646326!3d43.529172771108314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc855b90fe20d%3A0xa8fd370f4781183e!2z5Zub5a2j5b2p5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1780629261602!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2892.7132150364287!2d142.46250747646326!3d43.529172771108314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc855b90fe20d%3A0xa8fd370f4781183e!2z5Zub5a2j5b2p5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1780629261602!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">17:30 — 18:00</div>
+    <div class="event-title" data-zh="🏔 第三站：上富良野．深山峠展望台" data-en="🏔 Stop 3: Kamifurano · Miyama Pass Lookout">🏔 第三站：上富良野．深山峠展望台</div>
+    <div class="event-desc" data-zh="路旁有巨大摩天輪、一覽丘陵田野風光" data-en="Giant Ferris wheel by the roadside, with sweeping views over rolling farmland">路旁有巨大摩天輪、一覽丘陵田野風光</div>
+    <div class="spot-photo-wrap"><img src="img/深山峠展望台.png" alt="深山峠展望台"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=深山峠展望台+上富良野')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=深山峠展望台+上富良野" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.278894808233!2d142.44712887646276!3d43.517376571108954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc84b23d70e75%3A0x21dd6cd50431b133!2z5rex5bGx5bOg5bGV5pyb5Y-w!5e0!3m2!1szh-TW!2stw!4v1780629322200!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2893.278894808233!2d142.44712887646276!3d43.517376571108954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc84b23d70e75%3A0x21dd6cd50431b133!2z5rex5bGx5bOg5bGV5pyb5Y-w!5e0!3m2!1szh-TW!2stw!4v1780629322200!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">18:30</div>
+    <div class="event-title" data-zh="🍽 富良野市 晚餐" data-en="🍽 Furano City Dinner">🍽 富良野市 晚餐</div>
+    <div class="event-desc" data-zh="晚餐後逛超市採買：水果、糧食、啤酒、明日早餐（麵包、飯糰）" data-en="After dinner, stock up at the supermarket: fruit, snacks, beer, and tomorrow's breakfast (bread, onigiri)">晚餐後逛超市採買：水果、糧食、啤酒、明日早餐（麵包、飯糰）</div>
+  </div>
+</div>
+
+</div>
+<div class="note-block">
+  <div class="note-title" data-zh="📌 小提醒" data-en="📌 Quick Reminder">📌 小提醒</div>
+  <span data-zh="飯糰記得出發前買好放背包，免得機上餓肚子。超市採買建議早點去，越晚越容易搶空！" data-en="Buy onigiri before departure and pack them in your bag — you don't want to go hungry on the plane. Head to the supermarket early; shelves empty fast!">飯糰記得出發前買好放背包，免得機上餓肚子。超市採買建議早點去，越晚越容易搶空！</span>
+</div>
+</section>
+<div class="day-divider"></div>
+
+<!-- ===== DAY 2 ===== -->
+<section id="day623" class="day-section">
+<div class="day-header">
+  <div class="day-label">Day 2</div>
+  <div class="day-title" data-zh="6/23（週二）花海全攻略" data-en="6/23 (Tue) Flower Fields Day">6/23（週二）花海全攻略</div>
+  <div class="day-subtitle" data-zh="富田農場 → 白金青池 → 美瑛" data-en="Farm Tomita → Shirogane Blue Pond → Biei">富田農場 → 白金青池 → 美瑛</div>
+</div>
+<div class="timeline">
+
+<div class="event">
+  <div class="event-line"><div class="event-dot highlight"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">06:00 — 08:00</div>
+    <div class="event-title" data-zh="💜 富田農場（Farm Tomita）" data-en="💜 Farm Tomita">💜 富田農場（Farm Tomita）</div>
+    <div class="event-desc" data-zh="&lt;strong&gt;06:00–07:00 前半場：傳統薰衣草田&lt;/strong&gt;&lt;br&gt;站展望台由上往下朝西拍，柔和側逆光穿透花瓣邊緣，金黃滾邊超夢幻！&lt;br&gt;&lt;br&gt;&lt;strong&gt;07:00–08:00 後半場：彩色花田&lt;/strong&gt;&lt;br&gt;罌粟花、魯冰花、萬壽菊七彩全照亮，坡腳由下往上拍，或用長焦橫向裁切花海的幾何感，飽和度最漂亮" data-en="&lt;strong&gt;06:00–07:00 First Half: Traditional Lavender Field&lt;/strong&gt;&lt;br&gt;Shoot from the observation platform facing west — soft side-backlight catches the petal edges with a dreamy golden rim.&lt;br&gt;&lt;br&gt;&lt;strong&gt;07:00–08:00 Second Half: Colorful Flower Fields&lt;/strong&gt;&lt;br&gt;Poppies, lupins, and marigolds bloom in full color. Shoot uphill from the base, or crop a geometric slice of the blooms with a telephoto for maximum saturation."><strong>06:00–07:00 前半場：傳統薰衣草田</strong><br>站展望台由上往下朝西拍，柔和側逆光穿透花瓣邊緣，金黃滾邊超夢幻！<br><br><strong>07:00–08:00 後半場：彩色花田</strong><br>罌粟花、魯冰花、萬壽菊七彩全照亮，坡腳由下往上拍，或用長焦橫向裁切花海的幾何感，飽和度最漂亮</div>
+    <div class="spot-photo-wrap"><img src="img/富田農場.png" alt="富田農場薰衣草田"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=Farm+Tomita+富良野')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=Farm+Tomita+富良野" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2898.0276379016505!2d142.42546577645794!3d43.41824927111436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb35dd4163777%3A0xb76dcf0287606d92!2z5a-M55Sw6L6y5aC0!5e0!3m2!1szh-TW!2stw!4v1780629350775!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2898.0276379016505!2d142.42546577645794!3d43.41824927111436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cb35dd4163777%3A0xb76dcf0287606d92!2z5a-M55Sw6L6y5aC0!5e0!3m2!1szh-TW!2stw!4v1780629350775!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot highlight"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">08:30 — 09:15</div>
+    <div class="event-title" data-zh="🔵 白金青池" data-en="🔵 Shirogane Blue Pond">🔵 白金青池</div>
+    <div class="event-desc" data-zh="此時大順光，池水最藍最夢幻！&lt;br&gt;&lt;strong&gt;⚠️ 停車注意：&lt;/strong&gt;停車場500日圓，注意別誤入前方大型停車場（費用高達2000日圓！）" data-en="Full front-light at this hour — the water looks its most vivid blue!&lt;br&gt;&lt;strong&gt;⚠️ Parking Note:&lt;/strong&gt; ¥500 for the correct lot. Don't accidentally enter the large lot ahead (¥2,000!)">此時大順光，池水最藍最夢幻！<br><strong>⚠️ 停車注意：</strong>停車場500日圓，注意別誤入前方大型停車場（費用高達2000日圓！）</div>
+    <div class="spot-photo-wrap"><img src="img/白金青池.png" alt="白金青池"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=白金青池')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=白金青池" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ccc62de222a6f%3A0x4cd181f9f4b779e!2z55m96YeR6Z2S5rGg!5e0!3m2!1szh-TW!2stw!4v1780629383300!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ccc62de222a6f%3A0x4cd181f9f4b779e!2z55m96YeR6Z2S5rGg!5e0!3m2!1szh-TW!2stw!4v1780629383300!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">09:30 — 10:00</div>
+    <div class="event-title" data-zh="💦 白鬚瀑布" data-en="💦 Shirahige Waterfall">💦 白鬚瀑布</div>
+    <div class="event-desc" data-zh="車程5分鐘，停白金溫泉免費停車場，走上鐵橋拍 Tiffany 藍溪流" data-en="5 min drive. Free parking at Shirogane Onsen lot. Walk up to the iron bridge for Tiffany-blue stream photos.">車程5分鐘，停白金溫泉免費停車場，走上鐵橋拍 Tiffany 藍溪流</div>
+    <div class="spot-photo-wrap"><img src="img/白鬚瀑布.png" alt="白鬚瀑布"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=Shirahige+Waterfall')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=Shirahige+Waterfall" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cccaee046755f%3A0x506953e8f2f6626!2sShirahige%20Waterfall!5e0!3m2!1szh-TW!2stw!4v1780629395554!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cccaee046755f%3A0x506953e8f2f6626!2sShirahige%20Waterfall!5e0!3m2!1szh-TW!2stw!4v1780629395554!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">10:15 — 11:00</div>
+    <div class="event-title" data-zh="🌋 十勝岳望岳台" data-en="🌋 Tokachidake Observatory">🌋 十勝岳望岳台</div>
+    <div class="event-desc" data-zh="繼續往山上開約10分鐘，停車場開始走石子路10多分鐘抵達觀景台" data-en="Drive ~10 more min up the mountain. From the parking area, walk ~10 min on a gravel path to the viewpoint.">繼續往山上開約10分鐘，停車場開始走石子路10多分鐘抵達觀景台</div>
+    <div class="spot-photo-wrap"><img src="img/ 十勝岳望岳台.png" alt="十勝岳望岳台"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=十勝岳望岳台')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=十勝岳望岳台" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f732ef50589269b%3A0x260cc49bad1f460c!2z5Y2B5Yud5bKz5pyb5bKz5Y-w!5e0!3m2!1szh-TW!2stw!4v1780629417459!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200686.09730840885!2d142.58381375073137!3d43.50974299813512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f732ef50589269b%3A0x260cc49bad1f460c!2z5Y2B5Yud5bKz5pyb5bKz5Y-w!5e0!3m2!1szh-TW!2stw!4v1780629417459!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">11:30 — 13:00</div>
+    <div class="event-title" data-zh="🍝 午餐：木屋裡的手工義大利麵" data-en="🍝 Lunch: Handmade Pasta in a Log Cabin">🍝 午餐：木屋裡的手工義大利麵</div>
+    <div class="event-desc">自家製パスタ専門店 だぐらすふぁ～</div>
+    <div class="spot-photo-wrap"><img src="img/自家製パスタ専門店 だぐらすふぁ～.png" alt="だぐらすふぁ～"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/rQFZobGovAniiqec9')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.app.goo.gl/rQFZobGovAniiqec9" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37983.127187540085!2d142.47829414502618!3d43.57285015510279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ccf362d714137%3A0x441bd6aade59eb56!2z6Ieq5a626KO944OR44K544K_5bCC6ZaA5bqXIOOBoOOBkOOCieOBmeOBteOBge-9nuOAgg!5e0!3m2!1szh-TW!2stw!4v1780629481493!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37983.127187540085!2d142.47829414502618!3d43.57285015510279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ccf362d714137%3A0x441bd6aade59eb56!2z6Ieq5a626KO944OR44K544K_5bCC6ZaA5bqXIOOBoOOBkOOCieOBmeOBtuOBge-9nuOAgg!5e0!3m2!1szh-TW!2stw!4v1780629481493!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">13:15 — 14:00</div>
+    <div class="event-title" data-zh="🌲 美瑛西北方：拼布之路" data-en="🌲 Northwest Biei: Patchwork Road">🌲 美瑛西北方：拼布之路</div>
+    <div class="event-desc" data-zh="開車繞行拼布之路，沿途停靠 Ken &amp; Mary 之樹、Seven Star 之樹" data-en="Drive along Patchwork Road, with stops at Ken &amp; Mary's Tree and Seven Star Tree.">開車繞行拼布之路，沿途停靠 Ken &amp; Mary 之樹、Seven Star 之樹</div>
+    <div class="spot-photo-wrap"><img src="img/拼布之路.png" alt="美瑛拼布之路"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=Patchwork+Road+Biei')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=Patchwork+Road+Biei" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d239393.8812953008!2d142.26942035825482!3d43.60883515663846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc5f3eeebd377%3A0xdb20495a42f8ed1c!2sPatchwork%20Road%20(Biei)!5e0!3m2!1szh-TW!2stw!4v1780629576816!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d239393.8812953008!2d142.26942035825482!3d43.60883515663846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc5f3eeebd377%3A0xdb20495a42f8ed1c!2sPatchwork%20Road%20(Biei)!5e0!3m2!1szh-TW!2stw!4v1780629576816!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">14:00 — 15:00</div>
+    <div class="event-title" data-zh="☕ 下午茶：Kitchen Hitosaji" data-en="☕ Afternoon Tea: Kitchen Hitosaji">☕ 下午茶：Kitchen Hitosaji</div>
+    <div class="spot-photo-wrap"><img src="img/Kitchen Hitosaji.png" alt="Kitchen Hitosaji"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/7FNaAiQ1RZCjKwEp7')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.app.goo.gl/7FNaAiQ1RZCjKwEp7" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92448.0193787002!2d142.4561154!3d43.606528999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc586967a866b%3A0x74b9e71b69bfce37!2sKitchen%20Hitosaji!5e0!3m2!1szh-TW!2stw!4v1780629631367!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92448.0193787002!2d142.4561154!3d43.606528999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc586967a866b%3A0x74b9e71b69bfce37!2sKitchen%20Hitosaji!5e0!3m2!1szh-TW!2stw!4v1780629631367!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">15:30 — 17:30</div>
+    <div class="event-title" data-zh="🌅 全景之路（新榮之丘、三愛之丘）" data-en="🌅 Panorama Road (Shinei Hill, Sanai Hill)">🌅 全景之路（新榮之丘、三愛之丘）</div>
+    <div class="event-desc" data-zh="美瑛最壯闊的丘陵全景" data-en="The most sweeping hillside panoramas in Biei.">美瑛最壯闊的丘陵全景</div>
+    <div class="spot-photo-wrap"><img src="img/新榮之丘.png" alt="新榮之丘"></div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.google.com/?q=新榮之丘+美瑛')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=新榮之丘+美瑛" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2891.342801272345!2d142.45924106987917!3d43.55773960973802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc898bb85ad37%3A0x5eb3400950207b20!2z5paw5qau5LmL5LiY5bGV5pyb5YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1780629702901!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2891.342801272345!2d142.45924106987917!3d43.55773960973802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0cc898bb85ad37%3A0x5eb3400950207b20!2z5paw5qau5LmL5LiY5bGV5pyb5YWs5ZyS!5e0!3m2!1szh-TW!2stw!4v1780629702901!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">18:00</div>
+    <div class="event-title" data-zh="🍜 晚餐：拉麵 Hoshinoki" data-en="🍜 Dinner: Ramen at Hoshinoki">🍜 晚餐：拉麵 Hoshinoki</div>
+    <div class="swiper spot-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="img/Hoshinoki0.png" alt="Hoshinoki"></div>
+        <div class="swiper-slide"><img src="img/Hoshinoki1.png" alt="Hoshinoki"></div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+    <div class="btn-row">
+      <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/eu24v8BYRdfuqSSz8')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+    </div>
+    <div class="map-container">
+      <a href="https://maps.app.goo.gl/eu24v8BYRdfuqSSz8" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+      <iframe src="https://maps.google.com/maps?q=Hoshinoki+美瑛+北海道&output=embed&hl=zh-TW" data-src="https://maps.google.com/maps?q=Hoshinoki+美瑛+北海道&output=embed&hl=zh-TW" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="note-block">
+  <div class="note-title" data-zh="📌 拍照攻略重點" data-en="📌 Photo Tips">📌 拍照攻略重點</div>
+  <span data-zh="青池停車場要認清楚！前方大型停車場是2000日圓，正確那個才500日圓，注意路標別走錯入口喔。" data-en="Watch the parking signs at Blue Pond! The large front lot is ¥2,000. The correct lot is only ¥500 — watch the signs and don't miss the turn.">青池停車場要認清楚！前方大型停車場是2000日圓，正確那個才500日圓，注意路標別走錯入口喔。</span>
+</div>
+</section>
+<div class="day-divider"></div>
+
+<!-- ===== DAY 3 ===== -->
+<section id="day624" class="day-section">
+<div class="day-header">
+  <div class="day-label">Day 3</div>
+  <div class="day-title" data-zh="6/24（週三）往小樽" data-en="6/24 (Wed) Heading to Otaru">6/24（週三）往小樽</div>
+  <div class="day-subtitle" data-zh="還車 → 札幌 → 小樽" data-en="Return Car → Sapporo → Otaru">還車 → 札幌 → 小樽</div>
+</div>
+<div class="timeline">
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">08:00</div>
+    <div class="event-title" data-zh="🏡 民宿 Check Out，出發回札幌" data-en="🏡 Check Out, Head Back to Sapporo">🏡 民宿 Check Out，出發回札幌</div>
+    <div class="event-desc" data-zh="途中經過砂川服務區，冰淇淋超好吃，強烈建議停下來吃！" data-en="Stop at Sunagawa Service Area en route — the soft serve here is amazing, highly recommended!">途中經過砂川服務區，冰淇淋超好吃，強烈建議停下來吃！</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">10:00 — 10:30</div>
+    <div class="event-title" data-zh="🚗 還車" data-en="🚗 Return Rental Car">🚗 還車</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">11:00 — 12:00</div>
+    <div class="event-title" data-zh="🚌 搭公車到小樽（約一小時）" data-en="🚌 Bus to Otaru (approx. 1 hour)">🚌 搭公車到小樽（約一小時）</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time" data-zh="12:00 抵達" data-en="12:00 Arrive">12:00 抵達</div>
+    <div class="event-title" data-zh="🏨 抵達小樽，先到 Hostel 寄放行李" data-en="🏨 Arrive Otaru, Drop Bags at Hostel">🏨 抵達小樽，先到 Hostel 寄放行李</div>
+    <div class="event-desc" data-zh="下午自由活動 — 可以揪大家一起，也可以自由探索！" data-en="Free afternoon — explore together or on your own!">下午自由活動 — 可以揪大家一起，也可以自由探索！</div>
+  </div>
+</div>
+
+</div>
+
+<div class="free-block">
+  <div class="free-title" data-zh="🍜 午餐自由選擇" data-en="🍜 Lunch: Your Choice">🍜 午餐自由選擇</div>
+  <ul class="option-list" style="margin-top:0">
+    <li class="option-item">
+      <div class="option-name">Mahoro 拉麵</div>
+      <div class="option-meta">🕐 10:00–14:30</div>
+      <div class="swiper spot-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="img/Mahoro.png" alt="Mahoro"></div>
+          <div class="swiper-slide"><img src="img/Mahoro－１.png" alt="Mahoro"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/5Femn9YktZvTo8gh7')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/5Femn9YktZvTo8gh7" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae0529840c723%3A0xb69d17a8894126b0!2sMahoro!5e0!3m2!1szh-TW!2stw!4v1780630485338!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae0529840c723%3A0xb69d17a8894126b0!2sMahoro!5e0!3m2!1szh-TW!2stw!4v1780630485338!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+    <li class="option-item">
+      <div class="option-name">Chinese Restaurant Keien 中華料理</div>
+      <div class="option-meta">🕐 11:00–19:00</div>
+      <div class="spot-photo-wrap"><img src="img/Chinese Restaurant Keien.png" alt="Chinese Restaurant Keien"></div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/vvZqjRrp133cPKRW8')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/vvZqjRrp133cPKRW8" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.3568591916705!2d140.9953111263862!3d43.197093901422846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae0530f3b086f%3A0x57ca9b5c8ea288ff!2sChinese%20Restaurant%20Keien!5e0!3m2!1szh-TW!2stw!4v1780630032015!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.3568591916705!2d140.9953111263862!3d43.197093901422846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae0530f3b086f%3A0x57ca9b5c8ea288ff!2sChinese%20Restaurant%20Keien!5e0!3m2!1szh-TW!2stw!4v1780630032015!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+    <li class="option-item">
+      <div class="option-name">Menya Unga 拉麵</div>
+      <div class="option-meta" data-zh="🕐 12:00–19:00 · 料多實在、鰻魚飯，台灣人愛" data-en="🕐 12:00–19:00 · Generous portions, great unaju rice bowl">🕐 12:00–19:00 · 料多實在、鰻魚飯，台灣人愛</div>
+      <div class="swiper spot-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="img/Menya Unga 拉麵.png" alt="Menya Unga"></div>
+          <div class="swiper-slide"><img src="img/Menya Unga 拉麵-1.png" alt="Menya Unga"></div>
+          <div class="swiper-slide"><img src="img/Menya Unga 拉麵-2.png" alt="Menya Unga"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/j2pkxnyy8H3W87mR6')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/j2pkxnyy8H3W87mR6" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae1917bd2dd07%3A0xef7c448242c5951d!2sMenya%20Unga!5e0!3m2!1szh-TW!2stw!4v1780630457316!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae1917bd2dd07%3A0xef7c448242c5951d!2sMenya%20Unga!5e0!3m2!1szh-TW!2stw!4v1780630457316!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="free-block" style="margin-top:-1rem;border-top:1px solid rgba(122,170,130,.3);border-radius:10px 10px 0 0">
+  <div class="free-title" data-zh="🥠 點心推薦" data-en="🥠 Snack Picks">🥠 點心推薦</div>
+  <ul class="option-list" style="margin-top:0">
+    <li class="option-item">
+      <div class="option-name">雞蛋糕 正福屋</div>
+      <div class="option-meta">🕐 11:00–16:30</div>
+      <div class="spot-photo-wrap"><img src="img/雞蛋糕 正福屋.png" alt="正福屋"></div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/ahVbwBc4MU6EeLTX6')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/ahVbwBc4MU6EeLTX6" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b298523f3d243%3A0x591dfe2d0bbedf53!2z5q2j56aP5bGL!5e0!3m2!1szh-TW!2stw!4v1780630441230!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5817.049480053559!2d140.996579!3d43.1984821!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b298523f3d243%3A0x591dfe2d0bbedf53!2z5q2j56aP5bGL!5e0!3m2!1szh-TW!2stw!4v1780630441230!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="free-block" style="margin-top:-1rem;border-top:1px solid rgba(122,170,130,.3);border-radius:0 0 10px 10px">
+  <div class="free-title" data-zh="🍦 甜點 / 下午茶推薦" data-en="🍦 Desserts &amp; Afternoon Tea">🍦 甜點 / 下午茶推薦</div>
+  <ul class="option-list" style="margin-top:0">
+    <li class="option-item">
+      <div class="option-name">Ryugetsu Co. 柳月</div>
+      <div class="option-meta" data-zh="紅豆霜淇淋、蘭姆葡萄夾心、布丁" data-en="Red bean soft serve, rum raisin sandwich, pudding">紅豆霜淇淋、蘭姆葡萄夾心、布丁</div>
+      <div class="spot-photo-wrap"><img src="img/Ryugetsu Co. 柳月.png" alt="Ryugetsu Co. 柳月"></div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/d6NK1zg3TdNf2uPP6')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/d6NK1zg3TdNf2uPP6" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.6864098871324!2d141.00520352273813!3d43.19509037073331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae1a58537c33b%3A0xea8826c8718cc2f8!2sRyugetsu%20Co.!5e0!3m2!1szh-TW!2stw!4v1780629997622!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.6864098871324!2d141.00520352273813!3d43.19509037073331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae1a58537c33b%3A0xea8826c8718cc2f8!2sRyugetsu%20Co.!5e0!3m2!1szh-TW!2stw!4v1780629997622!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+    <li class="option-item">
+      <div class="option-name">六花亭 小樽運河店</div>
+      <div class="option-meta" data-zh="蘭姆葡萄夾心餅乾、新鮮藍莓夾心餅 · 二樓有咖啡廳可坐著享用" data-en="Rum raisin sandwich cookies, fresh blueberry sandwiches · Café seating on the 2nd floor">蘭姆葡萄夾心餅乾、新鮮藍莓夾心餅 · 二樓有咖啡廳可坐著享用</div>
+      <div class="spot-photo-wrap"><img src="img/六花亭 小樽運河店.png" alt="六花亭 小樽運河店"></div>
+      <div class="btn-row">
+        <button class="map-btn" onclick="toggleMap(this,'https://maps.app.goo.gl/JNo8RQgXi4T7nFRd9')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-zh="查看地圖" data-en="View Map">查看地圖</span></button>
+      </div>
+      <div class="map-container">
+        <a href="https://maps.app.goo.gl/JNo8RQgXi4T7nFRd9" target="_blank" class="map-open-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg><span data-zh="在 Google 地圖開啟" data-en="Open in Google Maps">在 Google 地圖開啟</span></a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.8386687847556!2d141.00763142690172!3d43.19189588184043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae05a9a019e6f%3A0xa0df3be1b8600904!2z5YWt6Iqx5LqtIOWwj-aovemBi-ays-W6lw!5e0!3m2!1szh-TW!2stw!4v1780629914851!5m2!1szh-TW!2stw" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.8386687847556!2d141.00763142690172!3d43.19189588184043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0ae05a9a019e6f%3A0xa0df3be1b8600904!2z5YWt6Iqx5LqtIOWwj-aovemBi-ays-W6lw!5e0!3m2!1szh-TW!2stw!4v1780629914851!5m2!1szh-TW!2stw" title="Google Maps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="timeline" style="padding-top:.5rem">
+  <div class="event">
+    <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+    <div class="event-body">
+      <div class="event-time" data-zh="15:00 起" data-en="From 15:00">15:00 起</div>
+      <div class="event-title">🏡 Check In — Garden House Umenoya Otaru</div>
+      <div class="event-desc" data-zh="雙人房（附衛浴）" data-en="Double room (en suite)">雙人房（附衛浴）</div>
+    </div>
+  </div>
+</div>
+
+<div class="note-block">
+  <div class="note-title" data-zh="📌 備注" data-en="📌 Note">📌 備注</div>
+  <span data-zh="今天行程比較鬆，大家按自己步調逛小樽運河、玻璃工藝街等，晚上可以再集合！" data-en="Today is relaxed — explore Otaru Canal, the glasswork district, and more at your own pace. Regroup in the evening!">今天行程比較鬆，大家按自己步調逛小樽運河、玻璃工藝街等，晚上可以再集合！</span>
+</div>
+</section>
+<div class="day-divider"></div>
+
+<!-- ===== DAY 4 ===== -->
+<section id="day625" class="day-section">
+<div class="day-header">
+  <div class="day-label">Day 4</div>
+  <div class="day-title" data-zh="6/25（週四）札幌自由日" data-en="6/25 (Thu) Free Day in Sapporo">6/25（週四）札幌自由日</div>
+  <div class="day-subtitle" data-zh="小樽 → 札幌" data-en="Otaru → Sapporo">小樽 → 札幌</div>
+</div>
+<div class="timeline">
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time" data-zh="早餐" data-en="Breakfast">早餐</div>
+    <div class="event-title" data-zh="🍳 民宿附餐" data-en="🍳 Included Breakfast">🍳 民宿附餐</div>
+    <div class="event-desc" data-zh="享用民宿早餐後，前往飯店寄放行李" data-en="Enjoy breakfast at the guesthouse, then head to the hotel to drop your luggage.">享用民宿早餐後，前往飯店寄放行李</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time" data-zh="全天" data-en="All Day">全天</div>
+    <div class="event-title" data-zh="🏙 札幌自由活動" data-en="🏙 Free Time in Sapporo">🏙 札幌自由活動</div>
+    <div class="event-desc" data-zh="大通公園、狸小路、薄野等都在步行範圍內，可以各自行動或一起！" data-en="Odori Park, Tanukikoji, and Susukino are all walkable — explore solo or together!">大通公園、狸小路、薄野等都在步行範圍內，可以各自行動或一起！</div>
+  </div>
+</div>
+
+</div>
+<div class="free-block">
+  <div class="free-title" data-zh="🏨 今晚住宿" data-en="🏨 Tonight's Stay">🏨 今晚住宿</div>
+  <span data-zh="住宿：札幌市區飯店" data-en="Accommodation: Sapporo city hotel">住宿：札幌市區飯店</span>
+</div>
+<div class="note-block">
+  <div class="note-title" data-zh="📌 備注" data-en="📌 Note">📌 備注</div>
+  <span data-zh="今天完全自由行！大家可以各自安排，有需要集合再說～" data-en="Totally free day! Everyone can do their own thing — just say when you need to regroup.">今天完全自由行！大家可以各自安排，有需要集合再說～</span>
+</div>
+</section>
+<div class="day-divider"></div>
+
+<!-- ===== DAY 5 ===== -->
+<section id="day626" class="day-section">
+<div class="day-header">
+  <div class="day-label">Day 5</div>
+  <div class="day-title" data-zh="6/26（週六）回家囉" data-en="6/26 (Sat) Heading Home!">6/26（週六）回家囉</div>
+  <div class="day-subtitle" data-zh="札幌 → 新千歲 → 桃園" data-en="Sapporo → New Chitose → Taoyuan">札幌 → 新千歲 → 桃園</div>
+</div>
+<div class="timeline">
+
+<div class="event">
+  <div class="event-line"><div class="event-dot food"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time" data-zh="07:00 起" data-en="From 07:00">07:00 起</div>
+    <div class="event-title" data-zh="🍳 住宿 Buffet 自助餐" data-en="🍳 Hotel Breakfast Buffet">🍳 住宿 Buffet 自助餐</div>
+    <div class="event-desc" data-zh="早餐 07:00 開始，記得早起吃飽再出發！" data-en="Breakfast from 07:00 — rise early and eat well before heading out!">早餐 07:00 開始，記得早起吃飽再出發！</div>
+  </div>
+</div>
+
+<div class="event">
+  <div class="event-line"><div class="event-dot transport"></div><div class="event-connector"></div></div>
+  <div class="event-body">
+    <div class="event-time">12:05</div>
+    <div class="event-title" data-zh="✈️ IT235 回程班機" data-en="✈️ IT235 Return Flight">✈️ IT235 回程班機</div>
+    <div class="event-desc" data-zh="記得預留充足時間前往新千歲機場報到～" data-en="Allow plenty of time to reach New Chitose Airport for check-in.">記得預留充足時間前往新千歲機場報到～</div>
+  </div>
+</div>
+
+</div>
+<div class="note-block">
+  <div class="note-title" data-zh="📌 最後提醒" data-en="📌 Final Reminder">📌 最後提醒</div>
+  <span data-zh="記得預留時間辦理退稅、逛機場免稅店，還有把剩餘日圓用掉！平安回家 🎉" data-en="Don't forget tax refunds, duty-free shopping, and spending those leftover yen! Safe travels home 🎉">記得預留時間辦理退稅、逛機場免稅店，還有把剩餘日圓用掉！平安回家 🎉</span>
+</div>
+</section>
+
+</main>
+<footer data-zh="北海道之旅 2026 · 富良野 × 美瑛 × 小樽&lt;br&gt;點擊地圖按鈕展開，右上角另開 Google 地圖" data-en="Hokkaido Trip 2026 · Furano × Biei × Otaru&lt;br&gt;Tap a map button to expand; top-right link opens Google Maps">北海道之旅 2026 · 富良野 × 美瑛 × 小樽<br>點擊地圖按鈕展開，右上角另開 Google 地圖</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+function toggleMap(btn,googleUrl){
+  var row=btn.closest('.btn-row');
+  var container=row?row.nextElementSibling:null;
+  if(!container||!container.classList.contains('map-container'))return;
+  var isOpen=container.classList.contains('open');
+  if(isOpen){container.classList.remove('open');}
+  else{
+    container.classList.add('open');
+    var iframe=container.querySelector('iframe');
+    if(iframe&&!iframe.src&&iframe.dataset.src){iframe.src=iframe.dataset.src;}
+    var link=container.querySelector('.map-open-link');
+    if(link&&googleUrl)link.href=googleUrl;
+  }
+}
+
+function setLang(lang){
+  document.documentElement.lang=lang==='en'?'en':'zh-TW';
+  var btn=document.getElementById('langBtn');
+  if(btn)btn.textContent=lang==='en'?'中文':'EN';
+  document.querySelectorAll('[data-zh]').forEach(function(el){
+    el.innerHTML=lang==='en'?el.dataset.en:el.dataset.zh;
+  });
+  try{localStorage.setItem('hokkaido_lang',lang);}catch(e){}
+}
+
+function toggleLang(){
+  var current='zh';
+  try{current=localStorage.getItem('hokkaido_lang')||'zh';}catch(e){}
+  setLang(current==='zh'?'en':'zh');
+}
+
+var navItems=document.querySelectorAll('.nav-item');
+document.querySelectorAll('.day-section').forEach(function(s){
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting)navItems.forEach(function(n){
+        n.classList.toggle('active',n.getAttribute('href')==='#'+e.target.id);
+      });
+    });
+  },{rootMargin:'-40% 0px -55% 0px'}).observe(s);
+});
+
+document.addEventListener('DOMContentLoaded',function(){
+  var saved='zh';
+  try{saved=localStorage.getItem('hokkaido_lang')||'zh';}catch(e){}
+  if(saved==='en')setLang('en');
+  setTimeout(function(){
+    document.querySelectorAll('.spot-swiper').forEach(function(el){
+      if(typeof Swiper!=='undefined'){
+        new Swiper(el,{loop:true,autoplay:{delay:4000,disableOnInteraction:false},pagination:{el:el.querySelector('.swiper-pagination'),clickable:true,dynamicBullets:false},navigation:{nextEl:el.querySelector('.swiper-button-next'),prevEl:el.querySelector('.swiper-button-prev')},slidesPerView:1,spaceBetween:0,observer:true,observeParents:true});
+      }
+    });
+  },300);
+});
+</script>
+</body>
+</html>
